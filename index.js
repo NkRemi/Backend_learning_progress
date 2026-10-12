@@ -5,6 +5,7 @@ PORT = process.env.PORT || 5000;
 app.get("/",(req,res)=>{
     res.status(200).json({
         message: "home page"
+        
     })
 })
 app.listen(PORT, (req,res)=>{
