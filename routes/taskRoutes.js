@@ -56,7 +56,20 @@ router.put("/tasks/:id",(req,res,next)=>{
 
 //Delete a task
 
+router.delete("/tasks/:id",(req,res,next)=>{
 
+    let taskId = Number(req.params.id);
+    let task = tasks.find((task)=>task.id ===taskId);
+    if(!task) {
+        let error = new Error(`Task does not Exist.`);
+        error.status = 404;
+        return next(error);
+    }
+    let newTasklist = tasks.filter((task)=>task.id !== taskId)
+    res.status(200).json({
+        "message": `Task Successfully deleted!`
+    })
+})
 
 
 export default router;
