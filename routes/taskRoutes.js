@@ -10,8 +10,7 @@ router.get("/tasks",(req,res)=>{
 
 //endpoint to find a task by id
 router.get("/tasks/:id",(req,res)=>{
-    let taskId = Number(req.params.id);
-    
+    let taskId = Number(req.params.id);//id from param is string, id in array is Number. make the types same.
     try{
         let isFound = tasks.some((task)=>task.id === taskId);
         if(!isFound) throw new Error(`Could not find Item with id ${taskId}`);
@@ -25,7 +24,6 @@ router.get("/tasks/:id",(req,res)=>{
 })
 //endpoint to create a task
 router.post("/tasks/create",(req,res)=>{
-    
     const {id,name,description,setDate,deadline} = req.body;
     tasks.push({
         id,name,description,setDate,deadline
@@ -36,7 +34,29 @@ router.post("/tasks/create",(req,res)=>{
     })
 })
 //endpoint to update a task
+router.put("/tasks/:id",(req,res,next)=>{
+   let taskId = Number(req.params.id);
+    
+   let task = tasks.find((task)=>task.id ===taskId);
+    if(!task) {
+        let error = new Error(`Task does not Exist.`);
+        error.status = 404;
+        return next(error);
+    }
+    
+    let newTask = {
+        id: req.body.id || task.id,
+        name:req.body.name || task.name,
+        description:req.body.description || task.description,
+        setDate:req.body.setDate || task.setDate,
+        deadline:req.body.deadline || task.deadline
+    }
+    res.status(201).json(newTask);
+})
 
 //Delete a task
+
+
+
 
 export default router;
