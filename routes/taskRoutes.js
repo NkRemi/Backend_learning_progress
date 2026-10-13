@@ -34,7 +34,7 @@ router.post("/tasks/create",(req,res)=>{
     })
 })
 //endpoint to update a task
-router.post("/tasks/:id",(req,res)=>{
+router.put("/tasks/:id",(req,res,next)=>{
    let taskId = Number(req.params.id);
     
    let task = tasks.find((task)=>task.id ===taskId);
@@ -55,5 +55,8 @@ router.post("/tasks/:id",(req,res)=>{
 })
 
 //Delete a task
+
+
+
 
 export default router;

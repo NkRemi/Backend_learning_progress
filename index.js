@@ -1,6 +1,7 @@
 import express from 'express'
 import tasks from './tasks.js';
 import router from './routes/taskRoutes.js';
+import errorHandler from './errorhandling/errorMiddleware.js';
 
 const app = express();
 let PORT = process.env.PORT || 5000;
@@ -15,6 +16,8 @@ app.get("/",(req,res)=>{
     })
 })
 
+//Mouting Error handling Middleware
+app.use(errorHandler)
 
 app.listen(PORT, (req,res)=>{
     console.log(`Server is listening at port ${PORT}`)
