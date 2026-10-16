@@ -6,7 +6,7 @@ import db from "./db.js";
 const app = express();
 const port = process.env.PORT
 
-app.use(express.json());
+app.use(express.json()); // parsing incoming json data
 app.use(express.static("public"));
 
 
