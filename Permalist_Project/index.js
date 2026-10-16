@@ -79,6 +79,12 @@ app.post("/delete/:id", async (req, res,next) => {
   }
   
 });
+//handle 404's
+app.use((req,res,next)=>{
+    const err = new Error(`Requested Response Not Found`);
+    err.status = 404
+    next(err)
+})
 
 app.use((err,req,res,next)=>{
     res.status(err.status || 500).json({
