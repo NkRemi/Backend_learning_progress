@@ -16,7 +16,12 @@ app.get("/health",(req,res)=>{
 })
 app.get("/",(req,res)=>{
     res.status(200).json({
-        message: "You've Reached the Task Manager API Successfully!!!"
+        message: "Task Manager API!",
+        routes: `Get tasks at /taskapi/tasks
+        get a task at /taskapi/<taskid>
+        create a task at /tasks/create
+        update task at /tasks/<taskid>
+        delete task at /task/<taskid>`
     })
 })
  
