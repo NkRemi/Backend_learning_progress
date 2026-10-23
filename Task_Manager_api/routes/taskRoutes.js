@@ -2,7 +2,7 @@ import express from 'express'
 import taskData from '../tasks.js';
 
 let tasks = taskData;
-const router = express.Router();
+const router = express.Router();//kinda like an express app
 
 //return a list of tasks
 router.get("/tasks",(req,res)=>{
