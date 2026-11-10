@@ -4,7 +4,7 @@ import router from './routes/taskRoutes.js';
 import errorHandler from './errorhandling/errorMiddleware.js';
 
 const app = express();
-let PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT;
 
 app.use(express.json());
 app.use("/taskapi",router);
@@ -16,7 +16,7 @@ app.get("/",(req,res)=>{
     })
 })
 
-//Mouting Error handling Middleware
+//Mounting Error handling Middleware
 app.use(errorHandler)
 
 app.listen(PORT, (req,res)=>{
