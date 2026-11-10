@@ -1,7 +1,8 @@
 import express from 'express'
-import tasks from '../tasks.js';
+import taskData from '../tasks.js';
 
-const router = express.Router();
+let tasks = taskData;
+const router = express.Router();//kinda like an express app
 
 //return a list of tasks
 router.get("/tasks",(req,res)=>{
@@ -36,8 +37,8 @@ router.post("/tasks/create",(req,res)=>{
 //endpoint to update a task
 router.put("/tasks/:id",(req,res,next)=>{
    let taskId = Number(req.params.id);
-    
-   let task = tasks.find((task)=>task.id ===taskId);
+    // console.log(taskId);
+   let task = tasks.find((task)=>task.id === taskId);
     if(!task) {
         let error = new Error(`Task does not Exist.`);
         error.status = 404;
@@ -51,12 +52,27 @@ router.put("/tasks/:id",(req,res,next)=>{
         setDate:req.body.setDate || task.setDate,
         deadline:req.body.deadline || task.deadline
     }
-    res.status(201).json(newTask);
+
+    tasks = tasks.map((task)=>task.id === taskId ? newTask : task)
+    res.status(200).json(newTask);
 })
 
 //Delete a task
 
+router.delete("/tasks/:id",(req,res,next)=>{
 
+    let taskId = Number(req.params.id);
+    let task = tasks.find((task)=>task.id ===taskId);
+    if(!task) {
+        let error = new Error(`Task does not Exist.`);
+        error.status = 404;
+        return next(error);
+    }
+    let newTasklist = tasks.filter((task)=>task.id !== taskId)
+    res.status(200).json({
+        "message": `Task Successfully deleted!`
+    })
+})
 
 
 export default router;
